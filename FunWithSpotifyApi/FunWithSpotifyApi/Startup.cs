@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +9,8 @@ namespace FunWithSpotifyApi
 {
     public class Startup
     {
+        private const string LoginPath = "/Login";
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -22,6 +21,23 @@ namespace FunWithSpotifyApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var appSettings = new AppSettings();
+            Configuration.Bind(appSettings);
+            services.AddSingleton(appSettings);
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = LoginPath;
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+                    options =>
+                    {
+                        options.LoginPath = new PathString(LoginPath);
+                        options.AccessDeniedPath = new PathString(LoginPath);
+                    });
+
             services.AddMvc();
         }
 
@@ -32,6 +48,8 @@ namespace FunWithSpotifyApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseStaticFiles();
 
