@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using FunWithSpotifyApi.Interfaces;
+using FunWithSpotifyApi.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +26,8 @@ namespace FunWithSpotifyApi
             var appSettings = new AppSettings();
             Configuration.Bind(appSettings);
             services.AddSingleton(appSettings);
+            services.AddScoped<ISpotifyApiClient, SpotifyApiClient>();
+            services.AddScoped<ISpotifyQueryBuilder, SpotifyQueryBuilder>();
 
             services.ConfigureApplicationCookie(options =>
             {

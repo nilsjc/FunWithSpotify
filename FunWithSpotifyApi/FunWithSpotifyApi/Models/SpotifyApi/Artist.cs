@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace FunWithSpotifyApi.Models.SpotifyApi
 {
-    public class Artist
+    public class Artist : SpotifyBase
     {
         [JsonProperty("external_urls")]
         public Dictionary<string, string> ExternalUrls { get; set; }

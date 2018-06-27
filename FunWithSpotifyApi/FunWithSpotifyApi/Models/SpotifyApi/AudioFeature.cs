@@ -2,7 +2,7 @@
 
 namespace FunWithSpotifyApi.Models.SpotifyApi
 {
-    public class AudioFeature
+    public class AudioFeature : SpotifyBase
     {
         [JsonProperty("acousticness")]
         public float Acousticness { get; set; }

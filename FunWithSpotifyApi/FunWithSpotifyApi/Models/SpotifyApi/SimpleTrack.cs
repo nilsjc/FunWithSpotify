@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace FunWithSpotifyApi.Models.SpotifyApi
 {
-    public class SimpleTrack
+    public class SimpleTrack : SpotifyBase
     {
         [JsonProperty("artists")]
         public List<SimpleArtist> Artists { get; set; }

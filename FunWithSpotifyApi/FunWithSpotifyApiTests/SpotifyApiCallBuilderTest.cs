@@ -9,11 +9,11 @@ namespace FunWithSpotifyApiTests
     [TestFixture]
     public class SpotifyApiCallBuilderTest
     {
-        private SpotifyApiCallBuilder _builder;
+        private SpotifyQueryBuilder _builder;
         [SetUp]
         public void TestSetUp()
         {
-            _builder = new SpotifyApiCallBuilder();
+            _builder = new SpotifyQueryBuilder();
         }
     }
 }

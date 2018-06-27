@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace FunWithSpotifyApi.Models.SpotifyApi
 {
-    public class Album
+    public class Album : SpotifyBase
     {
         [JsonProperty("album_type")]
         public string AlbumType { get; set; }

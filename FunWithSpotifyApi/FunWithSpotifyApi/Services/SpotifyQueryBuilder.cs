@@ -6,9 +6,14 @@ using FunWithSpotifyApi.Interfaces;
 
 namespace FunWithSpotifyApi.Services
 {
-    public class SpotifyApiCallBuilder : ISpotifyApiCallBuilder
+    public class SpotifyQueryBuilder : ISpotifyQueryBuilder
     {
         private const string ApiUrl = "https://api.spotify.com/v1";
+        private const string Limit = "?limit=";
+        private const string Offset = "&offset=";
+        private const string Market = "&market=";
+        private const string Albums = "albums";
+
         private const int CategoriesLimit = 10;
         private const int TracksLimit = 50;
 
@@ -17,10 +22,10 @@ namespace FunWithSpotifyApi.Services
         {
             limit = Math.Min(limit, 50);
             StringBuilder builder = new StringBuilder(ApiUrl + "/albums/" + id + "/tracks");
-            builder.Append("?limit=" + limit);
-            builder.Append("&offset=" + offset);
+            builder.Append(Limit + limit);
+            builder.Append(Offset + offset);
             if (!string.IsNullOrEmpty(market))
-                builder.Append("&market=" + market);
+                builder.Append(Market + market);
             return builder.ToString();
         }
 
@@ -28,7 +33,7 @@ namespace FunWithSpotifyApi.Services
         {
             if (string.IsNullOrEmpty(market))
                 return $"{ApiUrl}/albums/{id}";
-            return $"{ApiUrl}/albums/{id}?market={market}";
+            return $"{ApiUrl}/{Albums}/{id}?market={market}";
         }
 
         public string GetSeveralAlbums(List<string> ids, string market = "")
