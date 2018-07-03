@@ -1,4 +1,7 @@
-﻿@model object
+﻿@using FunWithSpotifyApi.Controllers
+@using FunWithSpotifyApi.Helpers
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model object
 
 <!DOCTYPE html>
 
@@ -9,6 +12,7 @@
 <body>
 <div>
     <h1>Spotify Music Selector</h1>
+    <h2>@Html.ActionLink("Start", nameof(QuestionsController.Index), ControllerResolver.GetUrlName(typeof(QuestionsController)) )</h2>
 </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿using FunWithSpotifyApi.Interfaces;
+using FunWithSpotifyApi.Repositories;
 using FunWithSpotifyApi.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -28,7 +29,7 @@ namespace FunWithSpotifyApi
             services.AddSingleton(appSettings);
             services.AddScoped<ISpotifyApiClient, SpotifyApiClient>();
             services.AddScoped<ISpotifyQueryBuilder, SpotifyQueryBuilder>();
-
+            services.AddSingleton<QuestionRepository>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = LoginPath;

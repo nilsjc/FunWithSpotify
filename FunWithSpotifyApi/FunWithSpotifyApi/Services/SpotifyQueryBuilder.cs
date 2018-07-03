@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using FunWithSpotifyApi.Interfaces;
+using Newtonsoft.Json;
 
 namespace FunWithSpotifyApi.Services
 {
     public class SpotifyQueryBuilder : ISpotifyQueryBuilder
     {
+        private const string AuthUrl = "https://accounts.spotify.com/api/token";
         private const string ApiUrl = "https://api.spotify.com/v1";
-        private const string Limit = "?limit=";
-        private const string Offset = "&offset=";
-        private const string Market = "&market=";
+        private const string Limit = "limit";
+        private const string Offset = "offset";
+        private const string Market = "market";
         private const string Albums = "albums";
 
         private const int CategoriesLimit = 10;
@@ -21,19 +27,19 @@ namespace FunWithSpotifyApi.Services
         public string GetAlbumTracks(string id, int limit = 20, int offset = 0, string market = "")
         {
             limit = Math.Min(limit, 50);
-            StringBuilder builder = new StringBuilder(ApiUrl + "/albums/" + id + "/tracks");
-            builder.Append(Limit + limit);
-            builder.Append(Offset + offset);
+            var builder = new StringBuilder(ApiUrl + "/" + Albums +"/" + id + "/tracks");
+            builder.Append("?" + Limit + "=" + limit);
+            builder.Append("&" + Offset + "=" + offset);
             if (!string.IsNullOrEmpty(market))
-                builder.Append(Market + market);
+                builder.Append("&" + Market + "=" + market);
             return builder.ToString();
         }
 
         public string GetAlbum(string id, string market = "")
         {
             if (string.IsNullOrEmpty(market))
-                return $"{ApiUrl}/albums/{id}";
-            return $"{ApiUrl}/{Albums}/{id}?market={market}";
+                return $"{ApiUrl}/{Albums}/{id}";
+            return $"{ApiUrl}/{Albums}/{id}?{Market}={market}";
         }
 
         public string GetSeveralAlbums(List<string> ids, string market = "")
@@ -73,7 +79,7 @@ namespace FunWithSpotifyApi.Services
         public string GetCategoryPlaylists(string categoryId, string country = "", int limit = 20, int offset = 0)
         {
             limit = Math.Min(50, limit);
-            StringBuilder builder = new StringBuilder(ApiUrl + "/browse/categories/" + categoryId + "/playlists");
+            var builder = new StringBuilder(ApiUrl + "/browse/categories/" + categoryId + "/playlists");
             builder.Append("?limit=" + limit);
             builder.Append("&offset=" + offset);
             if (!string.IsNullOrEmpty(country))
@@ -97,7 +103,7 @@ namespace FunWithSpotifyApi.Services
         public string GetPlaylistTracks(string userId, string playlistId, string fields = "", int limit = TracksLimit, int offset = 0, string market = "")
         {
             limit = Math.Min(limit, 100);
-            StringBuilder builder = new StringBuilder(ApiUrl + "/users/" + userId + "/playlists/" + playlistId + "/tracks");
+            var builder = new StringBuilder(ApiUrl + "/users/" + userId + "/playlists/" + playlistId + "/tracks");
             builder.Append("?fields=" + fields);
             builder.Append("&limit=" + limit);
             builder.Append("&offset=" + offset);
@@ -107,6 +113,5 @@ namespace FunWithSpotifyApi.Services
         }
 
         #endregion Playlists
-
     }
 }
