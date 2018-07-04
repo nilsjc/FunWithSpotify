@@ -1,10 +1,8 @@
 ﻿using FunWithSpotifyApi.Interfaces;
 using FunWithSpotifyApi.Repositories;
 using FunWithSpotifyApi.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,21 +27,19 @@ namespace FunWithSpotifyApi
             services.AddSingleton(appSettings);
             services.AddScoped<ISpotifyApiClient, SpotifyApiClient>();
             services.AddScoped<ISpotifyQueryBuilder, SpotifyQueryBuilder>();
+            services.AddScoped<IAudioFeatureRepository, AudioFeatureRepository>();
+            services.AddScoped<IRecommendationBuilder, RecommendationBuilder>();
+
             services.AddSingleton<QuestionRepository>();
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = LoginPath;
-            });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-                    options =>
-                    {
-                        options.LoginPath = new PathString(LoginPath);
-                        options.AccessDeniedPath = new PathString(LoginPath);
-                    });
+            services.AddMemoryCache();
 
+            services.AddSession();
+
+            services.AddDistributedMemoryCache();
+           
             services.AddMvc();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +53,8 @@ namespace FunWithSpotifyApi
             app.UseAuthentication();
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

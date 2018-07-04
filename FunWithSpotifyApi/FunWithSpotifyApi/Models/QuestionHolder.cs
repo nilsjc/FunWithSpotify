@@ -5,8 +5,8 @@ namespace FunWithSpotifyApi.Models
     public class QuestionHolder
     {
         public string Question { get; set; }
-        public string ReferenceTrack { get; set; }
-        public int Value { get; set; }
+        public string ReferenceTrackPlus { get; set; }
+        public string ReferenceTrackMinus { get; set; }
         public int Id { get; set; }
 
     }

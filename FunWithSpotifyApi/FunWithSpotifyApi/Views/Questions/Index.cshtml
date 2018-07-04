@@ -1,19 +1,16 @@
-﻿@using FunWithSpotifyApi.Controllers
+﻿@using FunWithSpotifyApi.Constants
+@using FunWithSpotifyApi.Controllers
 @using FunWithSpotifyApi.Helpers
 <head>
-    <link href="lib/slider/nouislider.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/Questions-Index.css" />
 </head>
 <body>
-    <div id="parameters">
-        <div class="slider" id="value"></div>
-    </div>
     <h2 id="question"></h2>
-    @for (int i = 1; i < 6; i++)
+    @for (int i = 1; i < QuestionConstants.QuestionsMaxScore + 1; i++)
     {
-        <button onclick="selectAnswer(@i)"></button>
+        <button class="button" onclick="selectButton(@i)">@i</button>
     }
+    <br />
+    <div id="results"></div>
 </body>
-<script src="scripts/slideraction.js"></script>
-<script src="lib/slider/nouislider.min.js"></script>
-<script src="scripts/submitanswer.js"></script>
+<script src="scripts/questions-index.js"></script>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FunWithSpotifyApi.Helpers;
 using FunWithSpotifyApi.Models;
 using FunWithSpotifyApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -25,16 +26,18 @@ namespace FunWithSpotifyApi.Controllers
 
         [HttpGet]
         [Route("/questions/get")]
-        public IActionResult GetQuestion()
+        public IActionResult GetQuestion(int id)
         {
-            return Json(QuestionGenerator(null));
+            return Json(QuestionGenerator(id));
         }
 
-        [HttpPost]
+        
         [Route("/questions/post")]
-        public void Submit([FromBody] Answer answer)
+        public IActionResult Submit([FromBody] string result)
         {
-
+            return RedirectToRoutePermanent(
+                nameof(ResultsController.Index),
+                ControllerResolver.GetUrlName(typeof(ResultsController)));
         }
 
         private QuestionHolder QuestionGenerator(int? lastQuestionId = 0)
@@ -47,7 +50,9 @@ namespace FunWithSpotifyApi.Controllers
                 id = rnd.Next(1, _maxQuestionsInDb);
             } while (id == lastQuestionId);
 
-            var result = _repository.Questions().FirstOrDefault(q => q.Id == id);
+            var result = _repository.Questions()
+                .FirstOrDefault(q => q.Id == id);
+
             return result;
         }
     }

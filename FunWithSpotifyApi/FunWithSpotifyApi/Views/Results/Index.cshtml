@@ -1,0 +1,20 @@
+﻿@using FunWithSpotifyApi.Models.SpotifyApi
+<body>
+@if (@Model != null)
+{
+    foreach (var track in @Model.Tracks)
+     {
+         <div>@track.Name</div>
+         foreach (var artist in @track.Artists)
+         {
+             <img src="@track.Album.Images[1].Url"/>
+             <div>@artist.Name</div>
+         }
+         <br/>
+    }
+}
+else
+{
+    <div>Sorry, no music today</div>
+}
+</body>
