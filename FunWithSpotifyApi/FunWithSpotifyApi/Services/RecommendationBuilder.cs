@@ -101,13 +101,13 @@ namespace FunWithSpotifyApi.Services
                 Acousticness = WeightDiff(a.Acousticness, b.Acousticness),
                 Danceability = WeightDiff(a.Danceability, b.Danceability),
                 DurationMs = null,
-                Energy = null, //WeightDiff(a.Energy, b.Energy),
+                Energy = WeightDiff(a.Energy, b.Energy),
                 Instrumentalness = WeightDiff(a.Instrumentalness, b.Instrumentalness),
                 Key = null,
-                Liveness = null,    //WeightDiff(a.Liveness, b.Liveness),
-                Loudness = null,    //WeightDiff(a.Loudness, b.Loudness),
+                Liveness = WeightDiff(a.Liveness, b.Liveness),
+                Loudness = WeightDiff(a.Loudness, b.Loudness),
                 Popularity = null,
-                Speechiness = null, //WeightDiff(a.Speechiness, b.Speechiness),
+                Speechiness = WeightDiff(a.Speechiness, b.Speechiness),
                 Tempo = null,
                 Valence = WeightDiff(a.Valence, b.Valence)
             };
