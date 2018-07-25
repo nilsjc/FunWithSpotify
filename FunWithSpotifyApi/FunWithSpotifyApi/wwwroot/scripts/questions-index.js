@@ -1,4 +1,4 @@
-﻿var start = function startapplication() {
+﻿var startUp = function startapplication() {
     if (typeof (Storage) === "undefined") {
         alert("No session storage. You cannot use this application.");
         return;
@@ -27,27 +27,28 @@ function saveDataToLocalStorage(data) {
         sessionStorage.setItem('answers', JSON.stringify(array));
     }
 
-    if (array.length > 4)
-        postAnswer(data);
-    else //Get new question from server
+    if (array.length > 4) {
+        // To be selectable later
+        var select = document.getElementById("genre");
+        var genre = select.options[select.selectedIndex].value;
+        postAnswer(genre);
+    }
+    else {
+        //Get new question from server
         getQuestion();
+    }
     
 }
 
-function postAnswer(result) {
-    var postRequest = new XMLHttpRequest();
-    postRequest.open('POST', '/questions/post', true);
-    postRequest.setRequestHeader('Content-Type', 'application/json');
-    postRequest.onreadystatechange = function (data) {
-        window.location.href = "/results/index?result=" + createFriendlyResult(); //?result=
-    }
-    postRequest.send(JSON.stringify(sessionStorage.getItem('answers')));
-    //button.hidden = false;
+function postAnswer(genre) {
+    window.location.href = "/results/index?genre=" + genre
+        + "&result=" + createFriendlyResult();
 }
 
 function createFriendlyResult() {
     var array = [];
     array = sessionStorage.getItem('answers');
+    sessionStorage.removeItem('answers');
     return array;
 }
 

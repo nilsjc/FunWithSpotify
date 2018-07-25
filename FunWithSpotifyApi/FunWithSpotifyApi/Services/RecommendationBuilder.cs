@@ -23,7 +23,7 @@ namespace FunWithSpotifyApi.Services
             _model.Market = appSettings.Region;
         }
 
-        public RecommendationModel CalculateFromQuestions(List<Answer> answers)
+        public RecommendationModel CalculateFromQuestions(List<Answer> answers, string genre)
         {
             var recommendationList = new List<AnswerSetUp>();
             var audioFeatureList = new List<TunableTrack>();
@@ -65,10 +65,7 @@ namespace FunWithSpotifyApi.Services
             //TODO make this part of interactive selection
             _model.GenreSeed = new List<string>()
             {
-                "rock",
-                "pop",
-                "new age",
-                "classical"
+                genre
             };
             _model.Target = averageValue;
             return _model;

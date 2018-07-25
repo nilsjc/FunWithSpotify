@@ -27,16 +27,16 @@ namespace FunWithSpotifyApi.Controllers
         }
 
         
-        public IActionResult Index(string result)
+        public IActionResult Index(string result, string genre)
         {
-                var answers = JsonHelp.Deserialize<List<Answer>>(result);
-                var model = GetTracks(answers);
-                return View(model);
+            var answers = JsonHelp.Deserialize<List<Answer>>(result);
+            var model = GetTracks(answers, genre);
+            return View(model);
         }
 
-        private TrackList GetTracks(List<Answer>answers)
+        private TrackList GetTracks(List<Answer>answers, string genre)
         {
-            var recommendation = _recommendationBuilder.CalculateFromQuestions(answers);
+            var recommendation = _recommendationBuilder.CalculateFromQuestions(answers, genre);
 
             var query = _queryBuilder.GetRecommendations(recommendation);
             var result = _apiClient.GetData(query,

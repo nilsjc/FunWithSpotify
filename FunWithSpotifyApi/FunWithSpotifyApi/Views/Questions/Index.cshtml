@@ -1,10 +1,10 @@
 ﻿@using FunWithSpotifyApi.Constants
-@using FunWithSpotifyApi.Controllers
-@using FunWithSpotifyApi.Helpers
+
 <head>
     <link rel="stylesheet" href="css/Questions-Index.css" />
 </head>
 <body>
+    <h1>Please rate the statements:</h1>
     <h2 id="question"></h2>
     @for (int i = 1; i < QuestionConstants.QuestionsMaxScore + 1; i++)
     {
@@ -12,5 +12,13 @@
     }
     <br />
     <div id="results"></div>
+    <h3>Select genre:</h3>
+    <h2 id="genres"></h2>
+    @Html.DropDownList("genre" , 
+        new SelectList(GenreSelectables.Genre), 
+        "Select genre", 
+        new{ @class="genre-select"})
+    <br />
+    <div id="genreSelect"></div>
 </body>
 <script src="scripts/questions-index.js"></script>
