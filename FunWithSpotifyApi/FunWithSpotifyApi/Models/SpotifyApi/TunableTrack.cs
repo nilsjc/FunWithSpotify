@@ -8,49 +8,49 @@ namespace FunWithSpotifyApi.Models.SpotifyApi
 {
     public class TunableTrack
     {
-        [JsonProperty("acousticness")]
+        [String("Acousticness")]
         public float? Acousticness { get; set; }
 
-        [JsonProperty("danceability")]
+        [String("danceability")]
         public float? Danceability { get; set; }
 
-        [JsonProperty("duration_ms")]
+        [String("duration_ms")]
         public int? DurationMs { get; set; }
 
-        [JsonProperty("energy")]
+        [String("energy")]
         public float? Energy { get; set; }
 
-        [JsonProperty("id")]
+        [String("id")]
         public string Id { get; set; }
 
-        [JsonProperty("instrumentalness")]
+        [String("instrumentalness")]
         public float? Instrumentalness { get; set; }
 
-        [JsonProperty("key")]
+        [String("key")]
         public int? Key { get; set; }
 
-        [JsonProperty("liveness")]
+        [String("liveness")]
         public float? Liveness { get; set; }
 
-        [JsonProperty("loudness")]
+        [String("loudness")]
         public float? Loudness { get; set; }
 
-        [JsonProperty("mode")]
+        [String("mode")]
         public int? Mode { get; set; }
 
-        [JsonProperty("popularity")]
+        [String("popularity")]
         public int? Popularity { get; set; }
 
-        [JsonProperty("speechiness")]
+        [String("speechiness")]
         public float? Speechiness { get; set; }
 
-        [JsonProperty("tempo")]
+        [String("tempo")]
         public float? Tempo { get; set; }
 
-        [JsonProperty("time_signature")]
+        [String("time_signature")]
         public int? TimeSignature { get; set; }
 
-        [JsonProperty("valence")]
+        [String("valence")]
         public float? Valence { get; set; }
 
         public string BuildUrlParams(string prefix)

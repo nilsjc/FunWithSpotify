@@ -40,7 +40,7 @@ namespace FunWithSpotifyApi.Services
                 var minus = _audioFeatureRepo.GetAudioFeature(
                     _questionRepository
                         .GetQuestion(id)
-                        .ReferenceTrackPlus);
+                        .ReferenceTrackMinus);
 
                 var answerSetUp = new AnswerSetUp()
                 {
@@ -59,6 +59,7 @@ namespace FunWithSpotifyApi.Services
             for(int f = 0; f < audioFeatureList.Count - 1; f++)
             {
                 averageValue = CalculateAudioFeatures(audioFeatureList[f], audioFeatureList[f + 1], 3);
+                audioFeatureList[f] = averageValue;
             }
 
             //TODO make this part of interactive selection
@@ -135,7 +136,7 @@ namespace FunWithSpotifyApi.Services
                     return (a < b) ? a + difference : a - difference;
 
                 case 3:
-                    return difference;
+                    return difference * 2.0f;
 
                 case 4:
                     return (b > a) ? b - difference : b + difference;
